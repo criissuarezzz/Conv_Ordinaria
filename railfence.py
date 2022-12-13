@@ -1,15 +1,12 @@
- 
-#RAIL FENCE encriptado con numpys
-import numpy as np
+#rail fence encriptar
 
-def railfence_encrypt(plain_text, key):
-    plain_text = plain_text.replace(" ", "")
-    plain_text = plain_text.upper()
-    plain_text = list(plain_text)
-    plain_text = np.array(plain_text)
-    plain_text = plain_text.reshape(-1, key)
-    plain_text = plain_text.transpose()
-    plain_text = plain_text.flatten()
-    plain_text = "".join(plain_text)
-    return plain_text
-railfence_encrypt("hola como estas", 3)
+def rail_fence_encrypt(plain_text, key):
+    cipher_text = [''] * key
+    for col in range(len(plain_text)):
+        row = col % (2 * (key - 1))
+        if row >= key:
+            row = 2 * (key - 1) - row
+        cipher_text[row] += plain_text[col]
+    return ''.join(cipher_text)
+
+print(rail_fence_encrypt('hola', 3))
